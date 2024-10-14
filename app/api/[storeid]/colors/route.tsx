@@ -1,6 +1,7 @@
-import prismadb from "@/lib/prismadb";
+
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import prismadb from "@/lib/prismadb";
 
 export async function POST(
   req: Request,
@@ -11,19 +12,19 @@ export async function POST(
 
   try {
     const { userId } = auth();
-    const { label, imageUrl } = await req.json();
-    console.log("Received body:", label, imageUrl);
+    const { name, value } = await req.json();
+    console.log("Received body:", name, value);
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
 
-    if (!label) {
-      return new NextResponse("Label is required", { status: 400 });
+    if (!name) {
+      return new NextResponse("Name is required", { status: 400 });
     }
 
-    if (!imageUrl) {
-      return new NextResponse("Image URL is required", { status: 400 });
+    if (!value) {
+      return new NextResponse("Value URL is required", { status: 400 });
     }
 
     if (!params.storeId) {
@@ -41,18 +42,18 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const billboard = await prismadb.billBoard.create({
+    const color = await prismadb.color.create({
       data: {
-        label,
-        imageUrl,
+        name,
+        value,
         storeId: params.storeId,
       },
     });
    
 
-    return NextResponse.json(billboard);
+    return NextResponse.json(color);
   } catch (error) {
-    console.log(`[BILLBOARDS_POST] ${error}`, error);
+    console.log(`[COLOR_POST] ${error}`, error);
     
   
      if (error instanceof Error) {
@@ -73,15 +74,15 @@ export async function GET(
       return new NextResponse("Store Id is required", { status: 400 });
     }
 
-    const billboard = await prismadb.billBoard.findMany({
+    const colors = await prismadb.color.findMany({
       where: {
         storeId: params.storeId,
       },
     });
 
-    return NextResponse.json(billboard);
+    return NextResponse.json(colors);
   } catch (error) {
-    console.log("[STORE_GET]", error);
+    console.log("[COLORS_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

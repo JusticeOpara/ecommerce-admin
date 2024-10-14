@@ -55,7 +55,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           </div>
         ))}
       </div>
-      <CldUploadWidget onUpload={onUpload} uploadPreset="lmqyhvig">
+      <CldUploadWidget onSuccess={onUpload} uploadPreset="lmqyhvig">
         {({ open }) => {
           const onClick = () => {
             open();
@@ -77,3 +77,18 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   );
 };
 export default ImageUpload;
+
+
+
+// <ImageUpload  
+// value={field.value.map((image) => image.url)}
+// disabled={loading}
+// onChange={(url) => {
+//     const newValue = [...field.value, { url }];
+//     field.onChange((field.value = newValue));
+// }}
+// onRemove={(url) => {
+//     const newValue = field.value.filter((current) => current.url !== url);
+//     field.onChange(newValue);
+// }}
+// />

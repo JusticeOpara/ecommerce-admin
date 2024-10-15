@@ -1,7 +1,7 @@
 "use client"
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { BillBoardColumn } from "./columns"
+import { ProductColumn } from "./columns"
 import { Button } from "@/components/ui/button"
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react"
 import toast from "react-hot-toast"
@@ -11,7 +11,7 @@ import axios from "axios"
 import { AlertModal } from "@/components/models/alert-model"
 
 interface CellActionProps{
-data: BillBoardColumn
+data: ProductColumn
 }
 
 export const CellAction: React.FC<CellActionProps> = ({data}) => {
@@ -21,22 +21,22 @@ export const CellAction: React.FC<CellActionProps> = ({data}) => {
     const params = useParams()
     const onCopy = (id: string) => {
         navigator.clipboard.writeText(id);
-        toast.success("Billboard id copied to the clipboard");
+        toast.success("Product id copied to the clipboard");
       };
 
       const onDelete = async () => {
         try {
           setIsLoading(true);
           await axios.delete(
-            `/api/${params.storeId}/billboards/${data.id}`
+            `/api/${params.storeId}/products/${data.id}`
           );
           router.refresh();
      
-          toast.success("Billboard deleted.");
+          toast.success("Product deleted.");
         } catch (error) {
           console.log(error);
           toast.error(
-            "Make sure you removed all catergories using this billboard first"
+            "Something went wrong"
           );
         } finally {
           setIsLoading(false);
@@ -61,7 +61,7 @@ export const CellAction: React.FC<CellActionProps> = ({data}) => {
             <Copy className="mr-2 h-4"/>
             Copy ID
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={()=> router.push(`/${params.storeId}/billboards/${data.id}`) }>
+        <DropdownMenuItem onClick={()=> router.push(`/${params.storeId}/products/${data.id}`) }>
             <Edit className="mr-2 h-4"/>
             Update
         </DropdownMenuItem>

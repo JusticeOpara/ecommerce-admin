@@ -61,14 +61,16 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const onSubmit = async (data: BillboardFormValues) => {
     console.log("Submitting data:", data);
     console.log("Store ID:", params.storeId);
-  
 
     const apiUrl = `/api/${params.storeId}/billboards`;
-  console.log("API URL:", apiUrl);
+    console.log("API URL:", apiUrl);
     try {
       setIsLoading(true);
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
+        await axios.patch(
+          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          data
+        );
       } else {
         // const response = await axios.post(`/api/${params.storeId}/billboards`, data);
         // console.log("Server response:", response.data);
@@ -76,7 +78,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         console.log("Server response:", response.data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/billboards`)
+      router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
     } catch (error) {
       console.error("Submission error:", error);
@@ -91,7 +93,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       setIsLoading(false);
     }
   };
- 
+
   const onDelete = async () => {
     try {
       setIsLoading(true);

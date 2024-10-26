@@ -2,6 +2,8 @@
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
+
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 interface OverviewProps {
   data: any[];
 }

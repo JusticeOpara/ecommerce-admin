@@ -1,9 +1,15 @@
-import React from 'react'
-
-export default function AuthLayout ({ childern }: {childern : React.ReactNode}) {
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div className=' w-full h-full flex items-center justify-center'>
-        {childern}
-        </div>
-  )
+    <div className="flex items-center justify-center min-h-screen py-2 bg-gray-50 sm:px-6 lg:px-8">
+      {children}
+    </div>
+  );
 }
+
+{/* <div className=" w-full h-full flex items-center justify-center">
+{childern}
+</div> */}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useOrigin } from "@/hooks/use-origin";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { ApiAlert } from "./api-alert";
 
 interface ApiListProps {

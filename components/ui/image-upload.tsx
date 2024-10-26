@@ -1,3 +1,6 @@
+
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -24,6 +27,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
 
   const onUpload = (result: any) => {
     console.log(result);

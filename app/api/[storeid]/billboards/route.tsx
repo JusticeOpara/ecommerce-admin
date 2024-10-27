@@ -6,7 +6,6 @@ export async function POST(
   req: Request,
   { params }: { params: { storeId: string } }
 ) {
-
   console.log("Received params:", params);
 
   try {
@@ -27,7 +26,7 @@ export async function POST(
     }
 
     if (!params.storeId) {
-      return new NextResponse("Store id is required", { status: 400 });
+      return NextResponse.json({ error: "Store Id is required" },{ status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -48,21 +47,17 @@ export async function POST(
         storeId: params.storeId,
       },
     });
-   
 
     return NextResponse.json(billboard);
   } catch (error) {
     console.log(`[BILLBOARDS_POST] ${error}`, error);
-    
-  
-     if (error instanceof Error) {
-       return new NextResponse(`Errorxxx: ${error.message}`, { status: 500 });
+
+    if (error instanceof Error) {
+      return new NextResponse(`Errorxxx: ${error.message}`, { status: 500 });
     }
-     return new NextResponse("Unknown Internal Error", { status: 500 });
-  
+    return new NextResponse("Unknown Internal Error", { status: 500 });
   }
 }
-
 
 export async function GET(
   req: Request,
@@ -70,7 +65,10 @@ export async function GET(
 ) {
   try {
     if (!params.storeId) {
-      return new NextResponse("Store Id is required", { status: 400 });
+      return NextResponse.json(
+        { error: "Store Id is required" },
+        { status: 400 }
+      );
     }
 
     const billboard = await prismadb.billBoard.findMany({
@@ -82,6 +80,7 @@ export async function GET(
     return NextResponse.json(billboard);
   } catch (error) {
     console.log("[STORE_GET]", error);
-    return new NextResponse("Internal error", { status: 500 });
+    return NextResponse.json({ error: "Internal error" }, { status: 500 });
+    // return new NextResponse("Internal error", { status: 500 });
   }
 }

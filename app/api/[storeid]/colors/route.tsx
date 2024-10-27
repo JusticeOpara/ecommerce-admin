@@ -28,7 +28,11 @@ export async function POST(
     }
 
     if (!params.storeId) {
-      return new NextResponse("Store id is required", { status: 400 });
+      return NextResponse.json(
+        { error: "Store Id is required" },
+        { status: 400 }
+      );
+      
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -71,7 +75,10 @@ export async function GET(
 ) {
   try {
     if (!params.storeId) {
-      return new NextResponse("Store Id is required", { status: 400 });
+      return NextResponse.json(
+        { error: "Store Id is required" },
+        { status: 400 }
+      );
     }
 
     const colors = await prismadb.color.findMany({
@@ -83,6 +90,9 @@ export async function GET(
     return NextResponse.json(colors);
   } catch (error) {
     console.log("[COLORS_GET]", error);
-    return new NextResponse("Internal error", { status: 500 });
+   return NextResponse.json(
+        { error: "Store Id is required" },
+        { status: 400 }
+      );
   }
 }

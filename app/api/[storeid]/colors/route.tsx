@@ -16,15 +16,25 @@ export async function POST(
     console.log("Received body:", name, value);
 
     if (!userId) {
-      return new NextResponse("Unauthenticated", { status: 401 });
+      
+      return NextResponse.json(
+        { error: "Unathenticated" },
+        { status: 401 }
+      );
     }
 
     if (!name) {
-      return new NextResponse("Name is required", { status: 400 });
+      return NextResponse.json(
+        { error: "Name is required" },
+        { status: 400 }
+      );
     }
 
     if (!value) {
-      return new NextResponse("Value URL is required", { status: 400 });
+      return NextResponse.json(
+        { error: "Value URL is required" },
+        { status: 400 }
+      );
     }
 
     if (!params.storeId) {
@@ -43,7 +53,10 @@ export async function POST(
     });
 
     if (!storeByUserId) {
-      return new NextResponse("Unauthorized", { status: 403 });
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 403 }
+      );
     }
 
     const color = await prismadb.color.create({
@@ -62,9 +75,13 @@ export async function POST(
   
      if (error instanceof Error) {
        return new NextResponse(`Errorxxx: ${error.message}`, { status: 500 });
+       
     }
-     return new NextResponse("Unknown Internal Error", { status: 500 });
-  
+
+     return NextResponse.json(
+      { error: "Unknown Internal Error" },
+      { status: 500 }
+    );
   }
 }
 

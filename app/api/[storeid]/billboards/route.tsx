@@ -14,15 +14,24 @@ export async function POST(
     console.log("Received body:", label, imageUrl);
 
     if (!userId) {
-      return new NextResponse("Unauthenticated", { status: 401 });
+      return NextResponse.json(
+        { error: "Unauthenticated" },
+        { status: 401 }
+      );
     }
 
     if (!label) {
-      return new NextResponse("Label is required", { status: 400 });
+      return NextResponse.json(
+        { error: "Label is required" },
+        { status: 400 }
+      );
     }
 
     if (!imageUrl) {
-      return new NextResponse("Image URL is required", { status: 400 });
+      return NextResponse.json(
+        { error: "Image URL is required" },
+        { status: 400 }         
+      );
     }
 
     if (!params.storeId) {
